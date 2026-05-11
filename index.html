@@ -1,138 +1,224 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>4Man Engineering — Diagram Flow IPAL</title>
-  <style>
-    * { box-sizing:border-box; margin:0; padding:0; font-family:Arial,sans-serif; }
-    body { background:#f5f5f5; padding:10px; }
-    .container { max-width:1400px; margin:0 auto; background:#fff; box-shadow:0 2px 10px rgba(0,0,0,0.1); }
-    .input-section { padding:20px; background:#fff; border-bottom:2px solid #8b5cf6; }
-    .input-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:15px; }
-    @media(max-width:768px){ .input-grid{grid-template-columns:repeat(2,1fr);} }
-    label { display:block; font-size:0.85rem; font-weight:600; margin-bottom:4px; color:#333; }
-    input,select { width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:0.9rem; }
-    .btn { width:100%; padding:12px; border:none; border-radius:4px; cursor:pointer; font-weight:600; font-size:0.95rem; margin-bottom:8px; }
-    .btn-primary { background:#8b5cf6; color:#fff; }
-    .btn-success { background:#059669; color:#fff; }
-    .drawing-section { padding:30px; background:#fff; }
-    .title-block { text-align:center; border-bottom:2px solid #000; padding-bottom:15px; margin-bottom:20px; }
-    .title-block h1 { font-size:1.4rem; text-transform:uppercase; margin-bottom:8px; }
-    .title-block p { font-size:0.9rem; color:#555; }
-    #ipal-svg { width:100%; height:auto; border:1px solid #ddd; background:#fff; }
-    .footer { text-align:center; font-size:0.75rem; color:#666; margin-top:20px; padding-top:15px; border-top:2px solid #ddd; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4Man Engineering — Diagram Flow IPAL Professional</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f5f5f5;padding:10px}
+.container{max-width:1400px;margin:0 auto;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+.input-section{padding:20px;background:#fff;border-bottom:2px solid #8b5cf6}
+.input-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:15px}
+@media(max-width:768px){.input-grid{grid-template-columns:repeat(2,1fr)}}
+label{display:block;font-size:0.85rem;font-weight:600;margin-bottom:4px;color:#333}
+input,select{width:100%;padding:10px;border:1px solid #ccc;border-radius:4px;font-size:0.9rem}
+.btn{width:100%;padding:12px;border:none;border-radius:4px;cursor:pointer;font-weight:600;font-size:0.95rem;margin-bottom:8px}
+.btn-primary{background:#8b5cf6;color:#fff}
+.btn-success{background:#059669;color:#fff}
+.drawing-section{padding:30px;background:#fff}
+.title-block{text-align:center;border-bottom:2px solid #000;padding-bottom:15px;margin-bottom:20px}
+.title-block h1{font-size:1.4rem;text-transform:uppercase;margin-bottom:8px}
+.title-block p{font-size:0.9rem;color:#555}
+#ipal-svg{width:100%;height:auto;border:1px solid #ddd;background:#fff}
+.footer{text-align:center;font-size:0.75rem;color:#666;margin-top:20px;padding-top:15px;border-top:2px solid #ddd}
+</style>
 </head>
 <body>
 <div class="container">
-  <div class="input-section">
-    <h3 style="margin-bottom:15px;color:#8b5cf6;">🏭 Parameter Gedung & Limbah</h3>
-    <div class="input-grid">
-      <div><label>Nama Gedung</label><input type="text" id="buildingName" value="Gedung Komersial"></div>
-      <div><label>Luas Gedung (m²)</label><input type="number" id="area" value="50000"></div>
-      <div><label>Tipe Gedung</label><select id="buildingType"><option value="mall">Mall</option><option value="office">Kantor</option><option value="hotel">Hotel</option></select></div>
-      <div><label>Jam Operasi/Hari</label><input type="number" id="operatingHours" value="12"></div>
-    </div>
-    <button class="btn btn-primary" onclick="calculateIPAL()">🔄 Generate Diagram</button>
-  </div>
-  <div class="drawing-section">
-    <div class="title-block">
-      <h1>DIAGRAM FLOW IPAL</h1>
-      <p id="plant-title">Gedung Komersial</p>
-      <p id="plant-info">Kapasitas: - m³/hari</p>
-    </div>
-    <svg id="ipal-svg" viewBox="0 0 1400 900"></svg>
-    <div class="footer">4Man Engineering © 2024</div>
-  </div>
+<div class="input-section">
+<h3 style="margin-bottom:15px;color:#8b5cf6;">🏭 Parameter Gedung & Limbah</h3>
+<div class="input-grid">
+<div><label>Nama Gedung</label><input type="text" id="buildingName" value="Gedung Komersial"></div>
+<div><label>Luas Gedung (m²)</label><input type="number" id="area" value="50000"></div>
+<div><label>Tipe Gedung</label><select id="buildingType"><option value="mall">Mall/Pusat Perbelanjaan</option><option value="office">Kantor</option><option value="hotel">Hotel</option><option value="hospital">Rumah Sakit</option></select></div>
+<div><label>Jam Operasi/Hari</label><input type="number" id="operatingHours" value="12"></div>
 </div>
-<script>
-function calculateIPAL() {  var buildingName = document.getElementById('buildingName').value;
-  var area = parseFloat(document.getElementById('area').value);
-  var buildingType = document.getElementById('buildingType').value;
-  var operatingHours = parseInt(document.getElementById('operatingHours').value);
+<button class="btn btn-primary" onclick="calculateIPAL()">🔄 Generate Diagram Flow IPAL</button>
+<button class="btn btn-success" onclick="printPDF()">📥 Export PDF</button>
+</div>
+<div class="drawing-section">
+<div class="title-block">
+<h1>DIAGRAM FLOW IPAL</h1>
+<p id="plant-title">Gedung Komersial</p>
+<p id="plant-info">Kapasitas: - m³/hari</p>
+</div>
+<svg id="ipal-svg" viewBox="0 0 1400 900"></svg>
+<div class="footer">4Man Engineering © 2024 — Professional IPAL Design Tool</div>
+</div>
+</div>
+<script>function calculateIPAL(){
+var buildingName=document.getElementById('buildingName').value;
+var area=parseFloat(document.getElementById('area').value);
+var buildingType=document.getElementById('buildingType').value;
+var operatingHours=parseInt(document.getElementById('operatingHours').value);
 
-  // Standar
-  var m2PerPerson = {mall:10,office:10,hotel:20};
-  var literPerPerson = {mall:50,office:100,hotel:250};
+var m2PerPerson={mall:10,office:10,hotel:20,hospital:15};
+var literPerPerson={mall:50,office:100,hotel:250,hospital:300};
 
-  // Hitung
-  var people = Math.floor(area / m2PerPerson[buildingType]);
-  var cleanWaterDemand = (people * literPerPerson[buildingType]) / 1000;
-  var wasteWaterDemand = cleanWaterDemand * 0.8;
-  var hourlyFlow = wasteWaterDemand / 24;
+var people=Math.floor(area/m2PerPerson[buildingType]);
+var cleanWaterDemand=(people*literPerPerson[buildingType])/1000;
+var wasteWaterDemand=cleanWaterDemand*0.8;
+var hourlyFlow=wasteWaterDemand/24;
 
-  // Tank sizing
-  var eqVolume = hourlyFlow * 6;
-  var anaerobVolume = hourlyFlow * 24;
-  var aerobVolume = hourlyFlow * 12;
+var eqVolume=hourlyFlow*6;
+var anaerobVolume=hourlyFlow*24;
+var aerobVolume=hourlyFlow*12;
+var bioVolume=hourlyFlow*6;
+var clarVolume=hourlyFlow*4;
+var effVolume=hourlyFlow*2;
 
-  // Update UI
-  document.getElementById('plant-title').textContent = buildingName;
-  document.getElementById('plant-info').textContent = 'Kapasitas: ' + wasteWaterDemand.toFixed(0) + ' m³/hari | Luas STP: ' + (eqVolume+anaerobVolume+aerobVolume).toFixed(0) + ' m²';
+var totalVolume=eqVolume+anaerobVolume+aerobVolume+bioVolume+clarVolume+bioVolume+clarVolume+effVolume;
+var stpArea=totalVolume*2.5;
 
-  // Draw
-  drawDiagram(buildingName, wasteWaterDemand);
+document.getElementById('plant-title').textContent=buildingName;
+document.getElementById('plant-info').textContent='Kapasitas: '+wasteWaterDemand.toFixed(0)+' m³/hari | Luas Area STP: '+stpArea.toFixed(0)+' m²';
+
+drawDiagram(buildingName,wasteWaterDemand,stpArea,{
+eqVol:eqVolume,anaerobVol:anaerobVolume,aerobVol:aerobVolume,
+bio1Vol:bioVolume,clar1Vol:clarVolume,bio2Vol:bioVolume,clar2Vol:clarVolume,effVol:effVolume
+});
 }
 
-function drawDiagram(name, capacity) {
-  var svg = document.getElementById('ipal-svg');
-  var content = '';
-  
-  content += '<rect x="1150" y="20" width="230" height="50" fill="#e5e7eb" stroke="#000" stroke-width="2"/>';
-  content += '<text x="1265" y="40" text-anchor="middle" font-size="13" font-weight="bold">Diagram Flow IPAL</text>';
-  content += '<text x="1265" y="60" text-anchor="middle" font-size="12" font-weight="bold">' + name + '</text>';
-  
-  // Main tanks
-  var startY = 220;
-  var tankWidth = 100;
-  var tankHeight = 80;
-  var spacing = 30;
-  var currentX = 340;
+function drawDiagram(name,capacity,area,vols){
+var svg=document.getElementById('ipal-svg');
+var content='';
 
-  // Anaerob
-  content += '<rect x="'+currentX+'" y="'+startY+'" width="'+tankWidth+'" height="'+tankHeight+'" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';
-  content += '<text x="'+(currentX+tankWidth/2)+'" y="'+(startY+40)+'" text-anchor="middle" font-size="9">An-Aerob Tank</text>';
-  currentX += tankWidth + spacing;
+// Title Box
+content+='<rect x="1150" y="20" width="230" height="50" fill="#e5e7eb" stroke="#000" stroke-width="2"/>';
+content+='<text x="1265" y="40" text-anchor="middle" font-size="13" font-weight="bold">Diagram Flow IPAL</text>';
+content+='<text x="1265" y="60" text-anchor="middle" font-size="12" font-weight="bold">'+name+'</text>';
 
-  // Aeration
-  content += '<rect x="'+currentX+'" y="'+startY+'" width="'+tankWidth+'" height="'+tankHeight+'" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';  content += '<text x="'+(currentX+tankWidth/2)+'" y="'+(startY+40)+'" text-anchor="middle" font-size="9">Aeration Tank</text>';
-  currentX += tankWidth + spacing;
+// Inlet
+content+='<text x="30" y="50" font-size="10" font-weight="bold" fill="#f97316">InLet</text>';
+content+='<text x="30" y="65" font-size="9" fill="#f97316">Toilet & Restauran</text>';
+content+='<path d="M 50 75 L 50 90 L 80 90" fill="none" stroke="#f97316" stroke-width="3"/>';
 
-  // Biofilter 1
-  content += '<rect x="'+currentX+'" y="'+startY+'" width="'+tankWidth+'" height="'+tankHeight+'" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';
-  content += '<text x="'+(currentX+tankWidth/2)+'" y="'+(startY+35)+'" text-anchor="middle" font-size="8">Biofilter Aerob 1</text>';
-  currentX += tankWidth + spacing;
+// Bar Screen
+content+='<rect x="80" y="75" width="80" height="60" fill="#fef3c7" stroke="#000" stroke-width="2"/>';
+content+='<text x="120" y="105" text-anchor="middle" font-size="9" font-weight="bold">Bar Screen</text>';
+// Grease Trap
+content+='<rect x="200" y="135" width="100" height="50" fill="#fdba74" stroke="#000" stroke-width="2"/>';
+content+='<text x="250" y="165" text-anchor="middle" font-size="9" font-weight="bold">Grease Trap</text>';
 
-  // Clarifier 1
-  content += '<path d="M '+currentX+' '+startY+' L '+(currentX+tankWidth)+' '+startY+' L '+(currentX+tankWidth-10)+' '+(startY+tankHeight)+' L '+(currentX+10)+' '+(startY+tankHeight)+' Z" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';
-  content += '<text x="'+(currentX+tankWidth/2)+'" y="'+(startY+40)+'" text-anchor="middle" font-size="8">Clarifier 1</text>';
-  currentX += tankWidth + spacing;
+// Main Tanks
+var startY=220,tankWidth=100,tankHeight=80,spacing=30,currentX=340;
 
-  // Biofilter 2
-  content += '<rect x="'+currentX+'" y="'+startY+'" width="'+tankWidth+'" height="'+tankHeight+'" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';
-  content += '<text x="'+(currentX+tankWidth/2)+'" y="'+(startY+35)+'" text-anchor="middle" font-size="8">Biofilter Aerob 2</text>';
-  currentX += tankWidth + spacing;
+// Anaerob
+content+='<rect x="'+currentX+'" y="'+startY+'" width="'+tankWidth+'" height="'+tankHeight+'" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+35)+'" text-anchor="middle" font-size="8" font-weight="bold">An-Aerob</text>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+50)+'" text-anchor="middle" font-size="8">Tank</text>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+70)+'" text-anchor="middle" font-size="7">'+vols.anaerobVol.toFixed(1)+' m³</text>';
+currentX+=tankWidth+spacing;
 
-  // Clarifier 2
-  content += '<path d="M '+currentX+' '+startY+' L '+(currentX+tankWidth)+' '+startY+' L '+(currentX+tankWidth-10)+' '+(startY+tankHeight)+' L '+(currentX+10)+' '+(startY+tankHeight)+' Z" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';
-  content += '<text x="'+(currentX+tankWidth/2)+'" y="'+(startY+40)+'" text-anchor="middle" font-size="8">Clarifier 2</text>';
-  currentX += tankWidth + spacing;
+// Aeration
+content+='<rect x="'+currentX+'" y="'+startY+'" width="'+tankWidth+'" height="'+tankHeight+'" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+35)+'" text-anchor="middle" font-size="8" font-weight="bold">Aeration</text>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+50)+'" text-anchor="middle" font-size="8">Tank</text>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+70)+'" text-anchor="middle" font-size="7">'+vols.aerobVol.toFixed(1)+' m³</text>';
+// Blowers
+content+='<rect x="'+(currentX+20)+'" y="40" width="25" height="30" fill="#60a5fa" stroke="#000" stroke-width="2"/>';
+content+='<rect x="'+(currentX+55)+'" y="40" width="25" height="30" fill="#60a5fa" stroke="#000" stroke-width="2"/>';
+content+='<text x="'+(currentX+45)+'" y="35" text-anchor="middle" font-size="8">Blower</text>';
+currentX+=tankWidth+spacing;
 
-  // Effluent
-  content += '<rect x="'+currentX+'" y="'+startY+'" width="'+tankWidth+'" height="'+tankHeight+'" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';
-  content += '<text x="'+(currentX+tankWidth/2)+'" y="'+(startY+40)+'" text-anchor="middle" font-size="9">Effluent Tank</text>';
+// Biofilter 1
+content+='<rect x="'+currentX+'" y="'+startY+'" width="'+tankWidth+'" height="'+tankHeight+'" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+30)+'" text-anchor="middle" font-size="7" font-weight="bold">Biofilter</text>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+45)+'" text-anchor="middle" font-size="7">Aerob Tank 1</text>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+70)+'" text-anchor="middle" font-size="7">'+vols.bio1Vol.toFixed(1)+' m³</text>';
+currentX+=tankWidth+spacing;
 
-  // Outlet
-  content += '<line x1="'+(currentX+tankWidth)+'" y1="'+(startY+40)+'" x2="'+(currentX+tankWidth+60)+'" y2="'+(startY+40)+'" stroke="#f97316" stroke-width="3"/>';
-  content += '<text x="'+(currentX+tankWidth+85)+'" y="'+(startY+45)+'" font-size="9" fill="#f97316">OutLet Drainase</text>';
+// Clarifier 1
+content+='<path d="M '+currentX+' '+startY+' L '+(currentX+tankWidth)+' '+startY+' L '+(currentX+tankWidth-10)+' '+(startY+tankHeight)+' L '+(currentX+10)+' '+(startY+tankHeight)+' Z" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+35)+'" text-anchor="middle" font-size="8" font-weight="bold">Clarifier</text>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+50)+'" text-anchor="middle" font-size="8">Tank 1</text>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+70)+'" text-anchor="middle" font-size="7">'+vols.clar1Vol.toFixed(1)+' m³</text>';
+currentX+=tankWidth+spacing;
 
-  svg.innerHTML = content;
+// Biofilter 2
+content+='<rect x="'+currentX+'" y="'+startY+'" width="'+tankWidth+'" height="'+tankHeight+'" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+30)+'" text-anchor="middle" font-size="7" font-weight="bold">Biofilter</text>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+45)+'" text-anchor="middle" font-size="7">Aerob Tank 2</text>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+70)+'" text-anchor="middle" font-size="7">'+vols.bio2Vol.toFixed(1)+' m³</text>';
+currentX+=tankWidth+spacing;
+
+// Clarifier 2
+content+='<path d="M '+currentX+' '+startY+' L '+(currentX+tankWidth)+' '+startY+' L '+(currentX+tankWidth-10)+' '+(startY+tankHeight)+' L '+(currentX+10)+' '+(startY+tankHeight)+' Z" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+35)+'" text-anchor="middle" font-size="8" font-weight="bold">Clarifier</text>';content+='<text x="'+(currentX+50)+'" y="'+(startY+50)+'" text-anchor="middle" font-size="8">Tank 2</text>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+70)+'" text-anchor="middle" font-size="7">'+vols.clar2Vol.toFixed(1)+' m³</text>';
+currentX+=tankWidth+spacing;
+
+// Effluent
+content+='<rect x="'+currentX+'" y="'+startY+'" width="'+tankWidth+'" height="'+tankHeight+'" fill="#a7f3d0" stroke="#000" stroke-width="2"/>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+40)+'" text-anchor="middle" font-size="8" font-weight="bold">Effluent</text>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+55)+'" text-anchor="middle" font-size="8">Tank</text>';
+content+='<text x="'+(currentX+50)+'" y="'+(startY+70)+'" text-anchor="middle" font-size="7">'+vols.effVol.toFixed(1)+' m³</text>';
+
+// Outlet
+content+='<line x1="'+(currentX+tankWidth)+'" y1="'+(startY+40)+'" x2="'+(currentX+tankWidth+60)+'" y2="'+(startY+40)+'" stroke="#f97316" stroke-width="3"/>';
+content+='<circle cx="'+(currentX+tankWidth+40)+'" cy="'+(startY+40)+'" r="8" fill="#ef4444" stroke="#000" stroke-width="2"/>';
+content+='<text x="'+(currentX+tankWidth+85)+'" y="'+(startY+35)+'" font-size="9" font-weight="bold" fill="#f97316">OutLet</text>';
+content+='<text x="'+(currentX+tankWidth+85)+'" y="'+(startY+50)+'" font-size="9" fill="#f97316">Drainase</text>';
+
+// Sludge Tank
+var sludgeY=startY+tankHeight+50;
+content+='<rect x="340" y="'+sludgeY+'" width="100" height="80" fill="#78350f" stroke="#000" stroke-width="2"/>';
+content+='<text x="390" y="'+(sludgeY+45)+'" text-anchor="middle" font-size="9" font-weight="bold" fill="#fff">Sludge Tank</text>';
+
+// WTP Section
+var wtpY=sludgeY+130;
+content+='<text x="50" y="'+wtpY+'" font-size="11" font-weight="bold" fill="#3b82f6">WATER TREATMENT PLANT (WTP)</text>';
+
+// Sand Filter
+content+='<rect x="100" y="'+(wtpY+20)+'" width="80" height="90" fill="#3b82f6" stroke="#000" stroke-width="2"/>';
+content+='<text x="140" y="'+(wtpY+60)+'" text-anchor="middle" font-size="8" font-weight="bold" fill="#fff">Sand Filter</text>';
+
+// Carbon Filter
+content+='<rect x="210" y="'+(wtpY+20)+'" width="80" height="90" fill="#3b82f6" stroke="#000" stroke-width="2"/>';
+content+='<text x="250" y="'+(wtpY+60)+'" text-anchor="middle" font-size="8" font-weight="bold" fill="#fff">Carbon Filter</text>';
+
+// Softener
+content+='<rect x="320" y="'+(wtpY+20)+'" width="80" height="90" fill="#3b82f6" stroke="#000" stroke-width="2"/>';
+content+='<text x="360" y="'+(wtpY+60)+'" text-anchor="middle" font-size="8" font-weight="bold" fill="#fff">Softener</text>';
+
+// Clear Water Tank
+content+='<rect x="430" y="'+(wtpY+20)+'" width="100" height="90" fill="#22c55e" stroke="#000" stroke-width="2"/>';
+content+='<text x="480" y="'+(wtpY+60)+'" text-anchor="middle" font-size="8" font-weight="bold" fill="#fff">Clear Water</text>';
+content+='<text x="480" y="'+(wtpY+75)+'" text-anchor="middle" font-size="8" fill="#fff">Tank</text>';
+
+// Chemical Tanks
+content+='<rect x="900" y="'+(wtpY+20)+'" width="80" height="90" fill="#facc15" stroke="#000" stroke-width="2"/>';
+content+='<text x="940" y="'+(wtpY+60)+'" text-anchor="middle" font-size="8" font-weight="bold">Koagulan</text>';
+
+content+='<path d="M 780 '+(wtpY+20)+' L 860 '+(wtpY+20)+' L 850 '+(wtpY+110)+' L 790 '+(wtpY+110)+' Z" fill="#facc15" stroke="#000" stroke-width="2"/>';
+content+='<text x="820" y="'+(wtpY+60)+'" text-anchor="middle" font-size="8" font-weight="bold">Flocculation</text>';
+
+content+='<rect x="680" y="'+(wtpY+20)+'" width="80" height="90" fill="#facc15" stroke="#000" stroke-width="2"/>';content+='<text x="720" y="'+(wtpY+55)+'" text-anchor="middle" font-size="8" font-weight="bold">Intermediate</text>';
+content+='<text x="720" y="'+(wtpY+70)+'" text-anchor="middle" font-size="8" font-weight="bold">Tank</text>';
+
+// Pipes
+content+='<line x1="160" y1="105" x2="200" y2="105" stroke="#f97316" stroke-width="3"/>';
+content+='<line x1="250" y1="160" x2="250" y2="'+(startY+40)+'" stroke="#f97316" stroke-width="3"/>';
+content+='<line x1="200" y1="105" x2="200" y2="'+(startY+40)+'" stroke="#f97316" stroke-width="3"/>';
+content+='<line x1="200" y1="'+(startY+40)+'" x2="340" y2="'+(startY+40)+'" stroke="#f97316" stroke-width="3"/>';
+
+var pipeX=340+tankWidth;
+for(var i=0;i<7;i++){
+content+='<line x1="'+pipeX+'" y1="'+(startY+40)+'" x2="'+(pipeX+spacing)+'" y2="'+(startY+40)+'" stroke="#f97316" stroke-width="3"/>';
+pipeX+=tankWidth+spacing;
 }
 
-// Auto-run on load
-window.onload = function() {
-  calculateIPAL();
+svg.innerHTML=content;
+}
+
+function printPDF(){
+window.print();
+}
+
+window.onload=function(){
+calculateIPAL();
 };
 </script>
 </body>
